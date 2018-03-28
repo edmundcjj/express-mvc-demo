@@ -7,13 +7,24 @@ module.exports = {
 		response.render('usernew');
 	},
 
-	// create new user 
+	// create new user
 	new: (request, response) => {
-			console.log("inside controller", db.user)
-			db.user.new(request.body);
+		db.user.new(request.body, (queryResult) => {
 
-			response.send("monkey");
+            response.send("monkey");
+        });
+
 	}
+    get: (request, response) => {
+        /*
+        implement something like this
+        db.user.get(request.params.id, (queryResult) => {
+
+            response.render("pokemon", queryResult.pokemon);
+        });
+        */
+
+    }
 }
 
 

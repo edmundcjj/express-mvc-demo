@@ -1,25 +1,22 @@
 module.exports = (dbPool) => {
 	return {
 
-		new : (requestBody) => {
-			console.log("inside user");
+		new : (requestBody, callback) => {
 
 	  		let values = [
 	  			requestBody.email,
 	  			requestBody.name
 	      	];
 
-	      	console.log( "db pool", dbPool );
+            let queryString = 'INSERT INTO users (email, password) VALUES ($1, $2)';
 
-		    dbPool.query('INSERT INTO users (email, password) VALUES ($1, $2)', values, (error, queryResult) => {
+		    dbPool.query(queryString, values, (error, queryResult) => {
 
 		    	if( error ){
 		    		console.log( "db error", error.message );
 		    	}
-		    	console.log("insert row count", queryResult.rowCount)
+                callback( queryResult );
 		    });
-
-			console.log("inside user model");
 
 		}
 
