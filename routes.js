@@ -8,7 +8,10 @@ module.exports = (app) => {
    *  =========================================
    */
 
+  // user register form
   app.get('/users/new', users.newform);
+
+  //create user
   app.post('/users/new', users.new);
 
 }

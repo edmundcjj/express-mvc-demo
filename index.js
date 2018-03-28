@@ -27,6 +27,7 @@ app.use(cookieParser());
 // Set handlebars to be the default view engine
 app.engine('handlebars', handlebars.create().engine);
 app.set('view engine', 'handlebars');
+const dbPool = require('./db');
 
 var routesContext = require('./routes');
 
@@ -37,6 +38,14 @@ app.get('/', (request, response) => {
 });
 
 const server = app.listen(3000, () => console.log('~~~ Tuning in to the waves of port 3000 ~~~'));
+
+server.on('close', () => {
+  console.log('Closed express server')
+
+  db.pool.end(() => {
+    console.log('Shut down connection pool')
+  });
+});
 
 
 
