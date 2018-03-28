@@ -42,21 +42,7 @@ const server = app.listen(3000, () => console.log('~~~ Tuning in to the waves of
 server.on('close', () => {
   console.log('Closed express server')
 
-  db.pool.end(() => {
+  dbPool.pool.end(() => {
     console.log('Shut down connection pool')
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
