@@ -19,7 +19,12 @@ module.exports = (allModels) => {
     get: (request, response) => {
       let queryDone = (queryResult) => {
 
-        response.send("user email " + queryResult.rows[0].email );
+        let context = {
+            user:  queryResult.rows[0]
+        };
+
+        //response.send("user: "+queryResult.rows[0].email);
+        response.render("user", context );
       };
 
       allModels.user.get(request.params.id, queryDone);

@@ -5,6 +5,12 @@
   "repository": "git@github.com:wdi-sg/express-mvc-demo.git",
   "author": "awongh <akira@awongh.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines" : {
+    "node" : "^9.8.0"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
