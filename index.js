@@ -31,7 +31,7 @@ const dbPool = require('./db');
 
 var routesContext = require('./routes');
 
-routesContext(app);
+routesContext(app, dbPool);
 
 app.get('/', (request, response) => {
 	response.send('hello');

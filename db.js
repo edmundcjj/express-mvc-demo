@@ -1,6 +1,6 @@
 const pg = require('pg')
 
-const user = require('./models/user')
+const userModelFunction = require('./models/user')
 
 const configs = {
   user: 'akira',
@@ -9,18 +9,15 @@ const configs = {
   port: 5432,
 };
 
-const pool = new pg.Pool(configs)
-
-pool.on('error', function (err) {
+const dbPool = new pg.Pool(configs)
+dbPool.on('error', function (err) {
   console.log('idle client error', err.message, err.stack)
 })
+let userModelObject =  userModelFunction(dbPool);
+//userModelObject.new();
 
 // becomes dbPool
 module.exports = {
-  pool:pool,
-  user : user(pool),
-  //paramsokemon : pokemon(pool),
-  query: (text, params, callback) => {
-    return pool.query(text, params, callback)
-  }
+  pool:dbPool,
+  user : userModelObject
 }

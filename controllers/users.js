@@ -1,30 +1,31 @@
-const db = require('../db');
+module.exports = (allModels) => {
+  return {
 
-module.exports = {
+    // get register form
+    newform: (request, response) => {
+      response.render('usernew');
+    },
 
-	// get register form
-	newform: (request, response) => {
-		response.render('usernew');
-	},
+    // create new user
+    new: (request, response) => {
+      let queryDone = (queryResult) => {
 
-	// create new user
-	new: (request, response) => {
-		db.user.new(request.body, (queryResult) => {
+        response.send("we changed " + queryResult.rowCount + " rows");
+      };
 
-            response.send("monkey");
-        });
+      allModels.user.new(request.body, queryDone);
 
-	}
+    },
     get: (request, response) => {
-        /*
-        implement something like this
-        db.user.get(request.params.id, (queryResult) => {
+      let queryDone = (queryResult) => {
 
-            response.render("pokemon", queryResult.pokemon);
-        });
-        */
+        response.send("user email " + queryResult.rows[0].email );
+      };
+
+      allModels.user.get(request.params.id, queryDone);
 
     }
+  }
 }
 
 

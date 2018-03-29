@@ -1,6 +1,6 @@
-const users = require('./controllers/users');
+module.exports = (app,db) => {
 
-module.exports = (app) => {
+  const users = require('./controllers/users')(db);
 
   /*
    *  =========================================

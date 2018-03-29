@@ -1,11 +1,28 @@
-module.exports = (dbPool) => {
+module.exports = function(dbPool){
 	return {
 
-		new : (requestBody, callback) => {
+		get : (id, whenDoneWithQueryFunction) => {
+	  		let values = [
+	  			id
+	      	];
+
+			let queryString = 'SELECT * FROM users WHERE id=$1';
+
+		    dbPool.query(queryString, values, (error, queryResult) => {
+
+		    	if( error ){
+		    		console.log( "db error", error.message );
+		    	}
+                whenDoneWithQueryFunction( queryResult );
+		    });
+
+		},
+
+		new : (requestBody, whenDoneWithQueryFunction) => {
 
 	  		let values = [
 	  			requestBody.email,
-	  			requestBody.name
+	  			requestBody.password
 	      	];
 
             let queryString = 'INSERT INTO users (email, password) VALUES ($1, $2)';
@@ -15,12 +32,10 @@ module.exports = (dbPool) => {
 		    	if( error ){
 		    		console.log( "db error", error.message );
 		    	}
-                callback( queryResult );
+                whenDoneWithQueryFunction( queryResult );
 		    });
 
 		}
 
 	}
-
-
 }
